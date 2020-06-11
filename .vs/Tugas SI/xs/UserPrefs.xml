@@ -1,0 +1,23 @@
+﻿<Properties StartupConfiguration="{5638D4AC-8196-8264-F9DA-E2E078734E05}|">
+  <MonoDevelop.Ide.Workbench ActiveDocument="../../../../Desktop/GestRecg.py">
+    <Files>
+      <File FileName="Assets/Script/cameraFokus.cs" Line="16" Column="44" />
+      <File FileName="Assets/Script/AnimalController.cs" Line="19" Column="10" />
+      <File FileName="Library/PackageCache/com.ptc.vuforia.engine@8.5.9/Vuforia/Scripts/DefaultTrackableEventHandler.cs" Line="131" Column="1" />
+      <File FileName="Assets/Script/MainMenu.cs" Line="16" Column="26" />
+      <File FileName="Assets/Script/infoController.cs" Line="34" Column="35" />
+      <File FileName="Assets/Script/AudioController.cs" Line="49" Column="29" />
+      <File FileName="Assets/Script/AnimasiController.cs" Line="92" Column="1" />
+      <File FileName="Assets/Script/information.cs" Line="15" Column="32" />
+      <File FileName="Assets/Script/AlphabetController.cs" Line="27" Column="72" />
+      <File FileName="../../../../Desktop/GestRecg.py" Line="1" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="f5d454d0-fef8-47d4-bfe0-2d044e8cfc9b" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
