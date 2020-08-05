@@ -13,15 +13,18 @@ public class AnimasiController : MonoBehaviour
 
     void Update()
     {
-        if (DefaultTrackableEventHandler.nameObject == "jerapah") { 
+        if (Controller.nameObject == "jerapah")
+        {
             DObject = GameObject.Find("Giraffe").GetComponent<Transform>();
             anim = GameObject.Find("Giraffe").GetComponent<Animator>();
-    }
-        else if (DefaultTrackableEventHandler.nameObject == "serigala") { 
+        }
+        else if (Controller.nameObject == "serigala")
+        {
             DObject = GameObject.Find("Wolf").GetComponent<Transform>();
             anim = GameObject.Find("Wolf").GetComponent<Animator>();
-    }
-        else if (DefaultTrackableEventHandler.nameObject == "kura") {
+        }
+        else if (Controller.nameObject == "kura")
+        {
             DObject = GameObject.Find("Turtle").GetComponent<Transform>();
             anim = GameObject.Find("Turtle").GetComponent<Animator>();
         }
@@ -77,15 +80,5 @@ public class AnimasiController : MonoBehaviour
             i--;
         }
         
-    }
-
-    public void rotate(string arah)
-    {
-        float x = 20f, y = 20f , z = 20f ;
-        if(arah == "kanan")
-        {
-            //int i = 20;
-            DObject.transform.Rotate(-90 + x, 0f + y, 0f + z , Space.Self) ; 
-        }
     }
 }

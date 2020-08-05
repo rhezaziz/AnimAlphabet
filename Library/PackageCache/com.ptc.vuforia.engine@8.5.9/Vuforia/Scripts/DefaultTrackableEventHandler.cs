@@ -8,7 +8,6 @@ Confidential and Proprietary - Protected under copyright and other laws.
 
 using UnityEngine;
 using Vuforia;
-using UnityEngine;
 
 /// <summary>
 /// A custom handler that implements the ITrackableEventHandler interface.
@@ -18,12 +17,7 @@ using UnityEngine;
 /// </summary>
 public class DefaultTrackableEventHandler : MonoBehaviour, ITrackableEventHandler
 {
-    
-    public static bool track = false;
-    public string nama;
-    public static string nameObject = "test";
     #region PROTECTED_MEMBER_VARIABLES
-
 
     protected TrackableBehaviour mTrackableBehaviour;
     protected TrackableBehaviour.Status m_PreviousStatus;
@@ -40,7 +34,6 @@ public class DefaultTrackableEventHandler : MonoBehaviour, ITrackableEventHandle
             mTrackableBehaviour.RegisterTrackableEventHandler(this);
     }
 
-    
     protected virtual void OnDestroy()
     {
         if (mTrackableBehaviour)
@@ -92,8 +85,6 @@ public class DefaultTrackableEventHandler : MonoBehaviour, ITrackableEventHandle
 
     protected virtual void OnTrackingFound()
     {
-        track = true;
-        nameObject = nama;
         if (mTrackableBehaviour)
         {
             var rendererComponents = mTrackableBehaviour.GetComponentsInChildren<Renderer>(true);
@@ -117,9 +108,6 @@ public class DefaultTrackableEventHandler : MonoBehaviour, ITrackableEventHandle
 
     protected virtual void OnTrackingLost()
     {
-        track = false;
-        nameObject = nama;
-        //AnimasiController.i = 1;
         if (mTrackableBehaviour)
         {
             var rendererComponents = mTrackableBehaviour.GetComponentsInChildren<Renderer>(true);

@@ -1,54 +1,142 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿/*==============================================================================
+Copyright (c) 2019 PTC Inc. All Rights Reserved.
+
+Copyright (c) 2010-2014 Qualcomm Connected Experiences, Inc.
+All Rights Reserved.
+Confidential and Proprietary - Protected under copyright and other laws.
+==============================================================================*/
+
 using UnityEngine;
-using System;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
+using Vuforia;
 
-public class Controller : MonoBehaviour
+/// <summary>
+/// A custom handler that implements the ITrackableEventHandler interface.
+///
+/// Changes made to this file could be overwritten when upgrading the Vuforia version.
+/// When implementing custom event handler behavior, consider inheriting from this class instead.
+/// </summary>
+public class Controller : MonoBehaviour, ITrackableEventHandler
 {
-    // Start is called before the first frame update
-    public Text nama;
-    public static string infoNama = "";
-    public GameObject _panelTracking;
-    public static bool tracking = false;
-    void Start()
+
+    public static string nameObject;
+    public string nama;
+    public static bool track = false;
+    #region PROTECTED_MEMBER_VARIABLES
+
+    protected TrackableBehaviour mTrackableBehaviour;
+    protected TrackableBehaviour.Status m_PreviousStatus;
+    protected TrackableBehaviour.Status m_NewStatus;
+
+    #endregion // PROTECTED_MEMBER_VARIABLES
+
+    #region UNITY_MONOBEHAVIOUR_METHODS
+
+    protected virtual void Start()
     {
-        
+        mTrackableBehaviour = GetComponent<TrackableBehaviour>();
+        if (mTrackableBehaviour)
+            mTrackableBehaviour.RegisterTrackableEventHandler(this);
     }
 
-    // Update is called once per frame
-    void Update()
+    protected virtual void OnDestroy()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (mTrackableBehaviour)
+            mTrackableBehaviour.UnregisterTrackableEventHandler(this);
+    }
+
+    #endregion // UNITY_MONOBEHAVIOUR_METHODS
+
+    #region PUBLIC_METHODS
+
+    /// <summary>
+    ///     Implementation of the ITrackableEventHandler function called when the
+    ///     tracking state changes.
+    /// </summary>
+    public void OnTrackableStateChanged(
+        TrackableBehaviour.Status previousStatus,
+        TrackableBehaviour.Status newStatus)
+    {
+        m_PreviousStatus = previousStatus;
+        m_NewStatus = newStatus;
+
+        Debug.Log("Trackable " + mTrackableBehaviour.TrackableName +
+                  " " + mTrackableBehaviour.CurrentStatus +
+                  " -- " + mTrackableBehaviour.CurrentStatusInfo);
+
+        if (newStatus == TrackableBehaviour.Status.DETECTED ||
+            newStatus == TrackableBehaviour.Status.TRACKED ||
+            newStatus == TrackableBehaviour.Status.EXTENDED_TRACKED)
         {
-            SceneManager.LoadScene("Demo_scene");
+            OnTrackingFound();
         }
-        
-        
-        if (tracking == true && infoNama == "jerapah")
+        else if (previousStatus == TrackableBehaviour.Status.TRACKED &&
+                 newStatus == TrackableBehaviour.Status.NO_POSE)
         {
-            nama.text = "Jerapah";
-            _panelTracking.SetActive(false);
-        }else if (tracking == true && infoNama == "serigala")
-        {
-            nama.text = "Serigala";
-            _panelTracking.SetActive(false);
+            OnTrackingLost();
         }
-        else if (tracking == true && infoNama == "kura")
+        else
         {
-            nama.text = "Kura-Kura";
-            _panelTracking.SetActive(false);
+            // For combo of previousStatus=UNKNOWN + newStatus=UNKNOWN|NOT_FOUND
+            // Vuforia is starting, but tracking has not been lost or found yet
+            // Call OnTrackingLost() to hide the augmentations
+            OnTrackingLost();
         }
-        else if(tracking == false)
+    }
+
+    #endregion // PUBLIC_METHODS
+
+    #region PROTECTED_METHODS
+
+    protected virtual void OnTrackingFound()
+    {
+        track = true;
+        nameObject = nama;
+
+        if (mTrackableBehaviour)
         {
-            _panelTracking.SetActive(true);
-            nama.text = "Nama";
+            var rendererComponents = mTrackableBehaviour.GetComponentsInChildren<Renderer>(true);
+            var colliderComponents = mTrackableBehaviour.GetComponentsInChildren<Collider>(true);
+            var canvasComponents = mTrackableBehaviour.GetComponentsInChildren<Canvas>(true);
+
+            // Enable rendering:
+            foreach (var component in rendererComponents)
+                component.enabled = true;
+
+            // Enable colliders:
+            foreach (var component in colliderComponents)
+                component.enabled = true;
+
+            // Enable canvas':
+            foreach (var component in canvasComponents)
+                component.enabled = true;
         }
     }
 
 
-    //int x = 0;
-    //int x = Int32.Parse(TextBoxD1.Text);
-    // Int32.TryParse(TextBoxD1.Text, out x);
+    protected virtual void OnTrackingLost()
+    {
+        track = false;
+        //nameObject = nama;
+        AnimasiController.i = 1;
+        if (mTrackableBehaviour)
+        {
+            var rendererComponents = mTrackableBehaviour.GetComponentsInChildren<Renderer>(true);
+            var colliderComponents = mTrackableBehaviour.GetComponentsInChildren<Collider>(true);
+            var canvasComponents = mTrackableBehaviour.GetComponentsInChildren<Canvas>(true);
+
+            // Disable rendering:
+            foreach (var component in rendererComponents)
+                component.enabled = false;
+
+            // Disable colliders:
+            foreach (var component in colliderComponents)
+                component.enabled = false;
+
+            // Disable canvas':
+            foreach (var component in canvasComponents)
+                component.enabled = false;
+        }
+    }
+
+    #endregion // PROTECTED_METHODS
 }

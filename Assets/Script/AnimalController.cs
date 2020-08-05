@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class AnimalController : MonoBehaviour
 {
     public Text textInfo;
+    public GameObject panelScan;
     
 
     DefaultTrackableEventHandler control;
@@ -15,27 +16,24 @@ public class AnimalController : MonoBehaviour
         
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            SceneManager.LoadScene("Demo_scene");
+            MainMenu.namaScene = "menu";
+            SceneManager.LoadScene("Loading");
         }
 
         //Debug.Log(control.nama);?\
         //Debug.Log(DefaultTrackableEventHandler.nameObject);
-        if(DefaultTrackableEventHandler.track == true)
+        if(Controller.track == true)
         {
-            textInfo.text = DefaultTrackableEventHandler.nameObject;
+            textInfo.text = Controller.nameObject;
+            panelScan.SetActive(false);
         }
         else
         {
             textInfo.text = "";
+            panelScan.SetActive(true);
             
         }
 
         
-    }
-
-
-    public void NextAnim()
-    {
-
     }
 }

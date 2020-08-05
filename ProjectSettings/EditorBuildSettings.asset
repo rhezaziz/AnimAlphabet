@@ -6,12 +6,21 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/LevelLoader.unity
+    guid: 928652c75a6d3416d8be65c353e27581
+  - enabled: 1
     path: Assets/Scenes/Demo_scene.unity
     guid: 2b90041c02fa0424794af2d500508091
+  - enabled: 1
+    path: Assets/Scenes/Loading.unity
+    guid: fab74e5ef0a2b4c569fb74a2a9064e92
   - enabled: 1
     path: Assets/Scenes/Alphabet.unity
     guid: cfdcdd49e89a5486893fcc9b04b33391
   - enabled: 1
     path: Assets/Scenes/Animal.unity
     guid: da781177c248446fcb209ab65ed0f798
+  - enabled: 1
+    path: Assets/Scenes/Tentang.unity
+    guid: f7abae8b73121410db7e4e113f75bb4f
   m_configObjects: {}

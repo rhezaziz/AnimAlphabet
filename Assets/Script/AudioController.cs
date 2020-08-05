@@ -26,7 +26,7 @@ public class AudioController : MonoBehaviour
     private void Update()
     {
         Debug.Log(MainMenu.namaScene);
-        if(DefaultTrackableEventHandler.track == false)
+        if(Controller.track == false)
         {
             audioSource.Stop();
         }
@@ -49,7 +49,7 @@ public class AudioController : MonoBehaviour
     public void playAlphabet()
     {
             int x;
-            Int32.TryParse(DefaultTrackableEventHandler.nameObject, out x);
+            Int32.TryParse(Controller.nameObject, out x);
 
             audioSource.PlayOneShot(listSuara.suara[x]);
     }
@@ -58,15 +58,15 @@ public class AudioController : MonoBehaviour
 
     public void playAnimal()
     {
-        if (DefaultTrackableEventHandler.nameObject == "serigala")
+        if (Controller.nameObject == "serigala")
         {
             audioSource.PlayOneShot(listSuara.suara[0]);
         }
-        else if (DefaultTrackableEventHandler.nameObject == "jerapah")
+        else if (Controller.nameObject == "jerapah")
         {
             audioSource.PlayOneShot(listSuara.suara[1]);
         }
-        else if (DefaultTrackableEventHandler.nameObject == "kura")
+        else if (Controller.nameObject == "kura")
         {
             audioSource.PlayOneShot(listSuara.suara[2]);
         }

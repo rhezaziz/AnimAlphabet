@@ -7,27 +7,29 @@ using UnityEngine.UI;
 
 public class AlphabetController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    public Text test;
+    public GameObject panelScan;
     void Start()
     {
         
     }
-
-    // Update is called once per frame
     void Update()
     {
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            SceneManager.LoadScene("Demo_scene");
+            MainMenu.namaScene = "menu";
+            SceneManager.LoadScene("Loading");
         }
-        int x;
 
-        //Int32.TryParse(testing, out x);
-        Int32.TryParse(DefaultTrackableEventHandler.nameObject, out x);
-
-        //Debug.Log(x + 1);
-        int y = x + 1;
-        test.text = "" + y;
+        if(Controller.track == false)
+        {
+            panelScan.SetActive(true);
+        }else if(Controller.track == true)
+        {
+            panelScan.SetActive(false);
+        }
     }
+
+
+
 }

@@ -1,19 +1,37 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-
+    
     public static string namaScene;
-    public void Hewan(string nama){
-        namaScene = nama;
-        SceneManager.LoadScene("Animal");
+    public Animator serigala, jerapah;
+
+
+    private void Awake()
+    {
+        namaScene = "menu";
     }
 
-    public void ABC(string nama){
-        namaScene = nama;
-        SceneManager.LoadScene("Alphabet");
+
+    private void Update()
+    {
+        if(namaScene == "menu")
+        {
+            jerapah.SetBool("Menu", true);
+            serigala.SetBool("Menu", true);
+        }
     }
+    //button klik untuk pindah scene
+    public void Play(string nama){
+        namaScene = nama;
+        SceneManager.LoadScene("Loading");
+    }
+
+
+    public void keluar()
+    {
+        Application.Quit();
+    }
+    
 }
